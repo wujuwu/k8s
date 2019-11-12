@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-tomcat
+  namespace: default
+  annotations: 
+    kubernets.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: tomcat.k8s.com
+    http:
+      paths:
+      - path:
+        backend:
+          serviceName: tomcat-app
+          servicePort: 8080
+      - path:
+        backend:
+          serviceName: tomcat-app
+          servicePort: 8443
+  - host: 10.163.6.6
+    http:
+      paths:
+      - path:
+        backend:
+          serviceName: tomcat-app
+          servicePort: 8080
+      - path:
+        backend:
+          serviceName: tomcat-app
+          servicePort: 8443

@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: configmap
+    namespace: default
+    labels: 
+        app: cm
+spec:
+    containers:
+    - name: cm
+      image: ikubernetes/myapp:v1
+      ports: 
+      - name: http
+        containerPort: 80
+      env:
+      - name: server_port
+        valueFrom:
+          configMapKeyRef:
+            name: nginx-config
+            key: server_port  
+      - name: server_name
+        valueFrom:
+          configMapKeyRef:
+            name: nginx-config
+            key: server_name  
+

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: poststart-pod
+  namespace: default
+spec:
+  containers:
+  - name: busybox-httpd
+    image: busybox
+    imagePullPolicy: IfNotPresent
+    lifecycle:
+      postStart:
+        exec:
+          command: ["/bin/sh","-c","echo good>>/tmp/ping"]
+    command:
+    - "ping"
+    - "114.114.114.114"
+    

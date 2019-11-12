@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: mybusybox
+    labels: 
+        app: mybusybox
+spec:
+    imagePullSecrets:
+      - name: harbor
+    containers:
+    - name: busybox
+      image: 10.20.16.83/k8s/busybox
+      imagePullPolicy: IfNotPresent
+      command: 
+      - ping
+      - 114.114.114.114

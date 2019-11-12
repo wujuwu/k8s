@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-svc
+  namespace: default
+spec:
+  selector:
+    app: my-pod
+    release: statefulset
+  ports:
+  - name: web
+    port: 80
+  clusterIP: "None"
+    
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: my-stfs
+  namespace: default
+spec:
+  serviceName: my-svc
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-pod
+      release: statefulset
+  template:
+    metadata:
+      labels:
+        app: my-pod
+        release: statefulset
+    spec:
+      containers:
+      - name: myapp
+        image: ikubernetes/myapp:v1
+        ports:
+        - name: web
+          containerPort: 80
+        volumeMounts:
+        - name: mydata
+          mountPath: /usr/share/nginx/html
+  volumeClaimTemplates:
+  - metadata:
+      name: mydata
+    spec:
+      accessModes: ["ReadWriteOnce"] 
+      resources:
+        requests:
+          storage: 2Gi  

@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: dev-ingress
+spec:
+  podSelector: {}
+#    matchLabels: 
+#      name: mybusybox
+  policyTypes: 
+  - Egress
+  - Ingress
+  egress:
+  - to:
+    - ipBlock:
+        cidr: 10.200.2.4/24
+  ingress:
+  - from:
+    - ipBlock:
+        cidr: 10.200.2.5/32
+#  - from:
+#    - namespaceSelector:
+#        matchExpressions:
+#        - key: name
+#          operator: In
+#          values: ["prod","default"]              

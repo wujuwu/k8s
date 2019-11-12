@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: readiness-pod
+  namespace: default
+spec:
+  containers:
+  - name: readiness-exec-container
+    image: busybox
+    imagePullPolicy: IfNotPresent
+    command: ["/bin/sh","-c","touch /tmp/healthy;sleep 300;rm -f /tmp/healthy;sleep 3600"]
+    readinessProbe: 
+      exec:
+        command: ["test","-e","/temp/healthy"]
+      initialDelaySeconds: 1
+      periodSeconds: 3

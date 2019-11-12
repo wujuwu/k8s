@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-myapp
+  namespace: default
+spec:
+  replicas: 2
+  selector: 
+    matchLabels: 
+      app: myappdep
+      release: jerry
+  template:
+    metadata:
+      labels:
+        app: myappdep
+        release: jerry
+    spec:
+      containers:
+      - name: myappdep
+        image: nginx:1.17-alpine
+        ports:
+        - name: http
+          containerPort: 80           

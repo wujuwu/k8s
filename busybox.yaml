@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: busybox
+    namespace: default
+    labels: 
+        app: busybox
+spec:
+    containers:
+    - name: busybox
+      image: busybox:latest
+      command: 
+      - ping
+      - 114.114.114.114
+    serviceAccountName: admin 

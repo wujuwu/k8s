@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: pod-temp
+    namespace: default
+    labels: 
+        app: myapp
+spec:
+    containers:
+    - name: myapp
+      image: nginx:1.17.4-alpine
+    - name: busybox
+      image: busybox:latest
+      command: 
+      - ping
+      - 114.114.114.114
